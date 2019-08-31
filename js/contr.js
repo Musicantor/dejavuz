@@ -6,14 +6,11 @@
           if (arguments.length > 0) {
             switch (arguments[0]) {
               case 'start': {
-                               //alert('start')
                                 app.mod.set(arguments[1]);
                                 app.view.update();
                            break;}
-                           
               default: {
                            alert('def:'+ arguments[0])
-                           
                 } // default
              } // switch
           }else{
@@ -25,7 +22,7 @@
                            // obj: {fld:'txt',val:'hi'}
                           // alert(JSON.stringify(obj));
                switch (comm) {
-                    case 'start': view.build(); break;
+                    case 'start': view.build(0); break;
                     case 'err': alert("ctr: " + obj); break;
                     case 'update': view.update(); break;
                     case 'set':
@@ -49,7 +46,6 @@
                            nob.fld = nxtComm.fld;
                            nob.cancel = true;
                            cntr.doit('set',nob);
-                           
                         } // if inner
                     } else if (obj.fld === 'col') { // color change
                            var o = {}
@@ -74,6 +70,15 @@
                     } //if outer
                            view.update();
                            break;
+                   case 'sel':
+                           //alert(JSON.stringify(arguments[1]))
+                           if( arguments[1][1] == 'lang'){
+                             this.doit('set',{'fld':'lang','val':arguments[1][0],'cancel':true});
+                           }
+                           if( arguments[1][1] == 'col'){
+                           this.doit('set',{'fld':'col','val':arguments[1][0],'cancel':true});
+                           }
+                           break;
                 default: alert("cntr.doit: " + comm + ' ?'); break;
                            } // switch
          }, // doit func
@@ -83,7 +88,7 @@
     'set': function set(args){
             return cntr.doit('set',args);
         },
-    'get': function set(args){
+    'get': function get(args){
         return app.mod.get(args);
         }, // end func
     'start': function (a){

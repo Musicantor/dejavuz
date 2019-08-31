@@ -1,31 +1,20 @@
 ;(function ( app, undefined ){ // inject view object
   app.view = (app.view || {});
   view = app.view = (function(){ // View without language
-      function buildButton (id,txt,fld,val,cnl) {
-                     return "<button label=\'"+id+"\' onclick=\"app.exec('set',{fld:'"+fld+"',val:'"+val+"',cancel:"+cnl+"})\">"+txt+"</button>";
-         }
-      return {'build': function(){ // Build page elements
+      return {'build': function(pgn){ // Build page elements
                      document.title = app.mod.get('tle');
-                     view.setStyle('sec');
-                     
-                     var page =  "<h1>"+app.mod.get('hdng')+"</h1>"
-                     page += app.mod.get('inf');
-                     page += "<div id=\""+app.mod.getElemName(0)+"\"></div>";
-                     page += buildButton('btn0','FI','lang','fi',true);
-                     page += buildButton('btn1','EN','lang','en',true);
-                     page += buildButton('btn2',app.mod.get('red'),'col','red',true);
-                     page += buildButton('btn3',app.mod.get('green'),'col','green',true);
-                     page += buildButton('btn4',app.mod.get('blue'),'col','blue',true);
-                     page += buildButton('btn5',app.mod.get('uiCnl'),'com','cnl',false);
-                     page += buildButton('btn6',app.mod.get('uiRdo'),'com','rdo',true);
-                     
-                     document.body.innerHTML = page;
-                     document.querySelector('div#'+app.mod.getElemName(0)).innerHTML = app.mod.get();
-          },
+                if (pgn == 0) {
+                     app.bld.buildPage(0);
+                 } else if (pgn == 1){
+                     app.bld.buildPage(1);
+                } // if
+                     },
         'update': function(){ // Update style & text elements
-                     this.build();
+                     var n = app.mod.getPageNum();
+                     
+                     this.build(0);
                      view.setStyle(0);
-        document.querySelector('div#'+app.mod.getElemName(0)).innerHTML = app.mod.get();
+          document.querySelector('div#'+app.mod.getElemName(0)).innerHTML = app.mod.get();
         },
         'setStyle': function (n){
                      var head = window.document.head;

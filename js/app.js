@@ -10,10 +10,10 @@
   document.getElementsByTagName('head')[0].appendChild(module);
  module.onload = function(){
   $('#object').show(); // loaded -> trigger
-         app.mod.ready(this.src);
+         // app.mod.ready(this.src);
   }
  }
-var modules = ['mod','view','contr','memento'];
+var modules = ['mod','builder','view','contr','memento'];
 for (var i = 0; i < modules.length; i++) {
   loadModule('js/'+modules[i] + '.js');
 }
