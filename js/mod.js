@@ -5,13 +5,12 @@
            
            var lang = 'en', model = {
            // n = language number
-           
-           fi:{n:0,red:'Punainen', green:'Vihreä', blue:'Sininen',
+           fi:{n:0,black:'Musta',red:'Punainen', green:'Vihreä', blue:'Sininen',
            uiCnl:'Peru',uiRdo:'Tee sittenkin',
            txt:'Builder ja memento GOF -suunnittelumallit testissä. Väri vaihtuu vaihtamalla JavaScriptin avulla lennossa koko CSS-tyyli. Huomaa myös valikoiden ja käyttöliittymän kielen vaihtuminen riippumatta siitä mistä komento tulee.',tle:'Tyyli ja kieli',hdng:'Esimerkki',
            inf:'Valitse kieli ja/tai tyyli, peruuta tai tee sittenkin toiminto uudelleen...'},
            
-           en:{n:1,red:'Red', green:'Green', blue:'Blue',
+           en:{n:1,black:'Black',red:'Red', green:'Green', blue:'Blue',
            uiCnl:'Undo',uiRdo:'Redo',
            txt:'I am using builder and memento GOF -patterns here. Color is chanced by switchin the whole CSS-style on the run, by JavaScript. Notice the chances in user interface -language and menus, no matter from where the command comes.',tle:'"Style & Lang"',hdng:'Example',
            inf:'Choose language / style and undo / redo & again...'}
@@ -28,10 +27,12 @@
               //alert(oldVal + ' changed to val:'+ o["val"]);
               return oldVal;
            } else if (o["fld"] === 'col'){
-              return currCol;
+              return currCol; // for memento
               currCol = o["val"];
            } else { // other fields
-              return model[lang][o["fld"]]=o["val"];
+              var oldVal = model[lang][o["fld"]];
+              model[lang][o["fld"]]=o["val"];
+              return oldVal;
            } // end if
            }; // end setVal
            return { 'set': function (obj){

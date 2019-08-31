@@ -2,13 +2,17 @@
   app.view = (app.view || {});
   view = app.view = (function(){ // View without language
       return {'build': function(pgn){ // Build page elements
-                     document.title = app.mod.get('tle');
+             document.title = app.mod.get('tle');
+             if (window.jQuery) { // are we in test mode ( no jquery in tests)
                 if (pgn == 0) {
                      app.bld.buildPage(0);
                  } else if (pgn == 1){
                      app.bld.buildPage(1);
                 } // if
-                     },
+              } else {
+                // test mode, do not build page
+              }
+           },
         'update': function(){ // Update style & text elements
                      var n = app.mod.getPageNum();
                      

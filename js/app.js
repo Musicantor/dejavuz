@@ -11,7 +11,9 @@
             module.setAttribute('onerror', "alert('Load: ' + this.src)");
             document.getElementsByTagName('head')[0].appendChild(module);
             module.onload = function(){
-                    $('#object').show(); // loaded -> trigger
+                 if (window.jQuery) { // no jquery in test mode
+                       $('#object').show(); // loaded -> trigger
+                    }
                     filesAdded.push(url); // alert(JSON.stringify(filesAdded))
                 }
     } // if

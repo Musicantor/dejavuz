@@ -1,7 +1,6 @@
-;(function ( app, undefined ){ // inject controller object
+;(function ( app, undefined ){ // inject builder object
   app.bld = (app.bld || {});
   var bld = app.bld = (function(){
-  
   
   return {
      'buildSelectFromArray': function (arr,langArr,id,selInd){
@@ -17,7 +16,7 @@
            } // if
          } // for
         return "<select  class='form-control' id='"+id+"' onChange=\"app.exec('sel',[this.options[this.options.selectedIndex].value,this.id,this.options.selectedIndex]);\">" + out + "</select></div>";
-    }, // buildSelectFromArray: var options = buildSelectFromArray(myarr,'menutst';
+    }, // buildSelectFromArray: var menu = buildSelectFromArray(values,names,id,0';
   'buildButton': function (id,txt,fld,val,cnl) {
     return "<button label=\'"+id+"\' onclick=\"app.exec('set',{fld:'"+fld+"',val:'"+val+"',cancel:"+cnl+"})\">"+txt+"</button>";
         },
@@ -28,10 +27,13 @@
       page += app.mod.get('inf');
       page += "<div id=\""+app.mod.getElemName(0)+"\"></div>";
                        var langN = app.mod.get('n');
-    page += app.bld.buildSelectFromArray(['fi','en'],['fi','en'],'lang',langN);
-       var vals = ['black','red','green','blue'];
-        cols = [['musta','puna','viher','sini'],['black','red','green','blue']];
-     page += app.bld.buildSelectFromArray(vals,cols[langN],'col',vals.indexOf(app.mod.currCol()));
+    page += app.bld.buildSelectFromArray(['fi','en'],['Suomeksi','In english'],'lang',langN);
+       var vals = ['black','red','green','blue']; // values to use in script
+       var cols =[];
+          for (var x = 0; x < vals.length; x++) { // lang versions to UI
+             cols.push(app.mod.get(vals[x]));
+         }
+     page += app.bld.buildSelectFromArray(vals,cols,'col',vals.indexOf(app.mod.currCol()));
       page += app.bld.buildButton('btn0','FI','lang','fi',true);
       page += app.bld.buildButton('btn1','EN','lang','en',true);
       page += app.bld.buildButton('btn2',app.mod.get('red'),'col','red',true);
