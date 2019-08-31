@@ -17,6 +17,17 @@
               alert('cntr:'+ arguments);
           } // end if else
      } // do
+     function replaceFile(xfile, newfile, ftype){
+             var jsorcss=(ftype=="js")? "script" : (ftype=="css")? "link" : "none"
+             var addr=(ftype=="js")? "src" : (ftype=="css")? "href" : "none"
+             var fileArr=document.getElementsByTagName(jsorcss)
+               for (var i= fileArr.length; i>=0; i--) {  //search
+                    if ( fileArr[i] && fileArr[i].getAttribute(addr)!=null &&       fileArr[i].getAttribute(addr).indexOf(xfile)!=-1) {
+                           var newel=createFile(newfile, ftype)
+                                 fileArr[i].parentNode.replaceChild(newel,fileArr[i])
+                    }
+                }
+     }
      return {
             'doit': function (comm,obj){
                            // obj: {fld:'txt',val:'hi'}
