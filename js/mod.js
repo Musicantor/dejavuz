@@ -48,7 +48,10 @@
                 return currCol;
            }, 'getPageNum': function () {
                 return pageNum;
-           }, 'setCurrCol': function (col) {
+           }, 'setPageNum': function (n) {
+                pageNum = n;
+           },
+           'setCurrCol': function (col) {
                 currCol = col;
            },  'getElemName': function (n) {
                 return elem[n];

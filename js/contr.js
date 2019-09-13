@@ -12,12 +12,37 @@
                     }
                 }
      }
+     function createFile(filename, filetype){
+            if (filetype=="js") { //if filename is a external JavaScript file
+               var fileref=document.createElement('script')
+                           fileref.setAttribute("type","text/javascript")
+                           fileref.setAttribute("src", filename)
+            } else if (filetype=="css") { //if filename is an external CSS file
+                           var fileref=document.createElement("link")
+                           fileref.setAttribute("rel", "stylesheet")
+                           fileref.setAttribute("type", "text/css")
+                           fileref.setAttribute("href", filename)
+            }
+         return fileref
+     }
      return {
             'doit': function (comm,obj){
                switch (comm) {
                     case 'start': view.build(0); break;
                     case 'set':
                       if (obj.fld === 'com') { // command
+                        if (obj.val === 'nxt') { // next page
+                           var o = {}
+                           o.fld = 'prv'; //for cancel
+                           o.oldVal = app.mod.getPageNum();
+                           app.mod.setPageNum(o.oldVal+1);
+                           o.newVal = o.oldVal+1;
+                           if (obj.cancel){
+                                app.mod.ml = mem.done(o); // set memento
+                           }
+                           view.update();
+                           replaceFile('js/empty.js','js/draw.js', 'js');
+                        }
                         if (obj.val === 'cnl' && mem.allow(0)) { // only com so far
                            var lastComm = mem.last()[0]; // get memento
                            if (lastComm == -1) return

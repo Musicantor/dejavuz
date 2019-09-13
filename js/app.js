@@ -19,7 +19,7 @@
     } // if
  }
 var filesAdded = [];
-var modules = ['mod','builder','view','contr','memento'];
+var modules = ['mod','builder','view','contr','memento','empty'];
 for (var i = 0; i < modules.length; i++) {
   loadModule('js/'+modules[i] + '.js');
 }
